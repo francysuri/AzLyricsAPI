@@ -9,13 +9,13 @@ Features
 
 - Print lyrics in Terminal.
 - Save lyrics in a .txt file.
+- Print lyrics with a connected printer (alpha)
 
 Roadmap
 ---
 
 I would like to add other feature:
 
-- Printer service
 - Paste lyrics in web with the help of services like Pastebin, Google Docs and more.
 
 

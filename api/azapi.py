@@ -23,9 +23,33 @@
 from lxml import etree
 import urllib2
 import StringIO
+import os
+import sys
 
 def encode(text):
 	return text.encode('utf-8')
+
+def query_yesorno(question, default="yes"):
+        valid = {"yes":True,   "y":True,  "ye":True, "no":False,   "n":False}
+        if default == None:
+                prompt = " [y/n] "
+        elif default == "yes":
+                prompt = " [Y/n] "
+        elif default == "no":
+                prompt = " [y/N] "
+        else:
+                raise ValueError("invalid default answer: '%s'" % default)
+
+        while True:
+                sys.stdout.write(question + prompt)
+                choice = raw_input().lower()
+                if default is not None and choice == '':
+                        return valid[default]
+                elif choice in valid:
+                        return valid[choice]
+                else:
+                        sys.stdout.write("Please respond with 'yes' or 'no' "\
+                                        "(or 'y' or 'n').\n")
 
 def generating(artist, title, save):
 		artist = ''.join(artist.split())
@@ -50,6 +74,11 @@ def printing(artist, title, save, lyrics):
 	
 	if save == True:
 		saving(artist, title, lyrics)
+		stampare = query_yesorno("Desideri stampare il file?")
+		if stampare == True:
+			printer = os.popen('lpr', 'w')
+			printer.write("\n".join(lyrics).encode('utf-8').strip())
+			printer.close()
 	elif save == False:
 		pass
 			

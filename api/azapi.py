@@ -74,7 +74,7 @@ def printing(artist, title, save, lyrics):
 	
 	if save == True:
 		saving(artist, title, lyrics)
-		stampare = query_yesorno("Desideri stampare il file?")
+		stampare = query_yesorno("Would you like to print the lyrics?")
 		if stampare == True:
 			printer = os.popen('lpr', 'w')
 			printer.write("\n".join(lyrics).encode('utf-8').strip())

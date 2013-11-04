@@ -24,9 +24,14 @@ from lxml import etree
 import urllib2
 import StringIO
 
+def encode(text):
+	return text.encode('utf-8')
+
 def generating(artist, title, save):
 		artist = ''.join(artist.split())
 		title = ''.join(title.split())
+		artist = artist.replace("'", "")
+		title = title.replace("'", "")
 		generate_url = 'http://azlyrics.com/lyrics/'+artist+'/'+title +'.html'
 		processing(generate_url, artist, title, save)
 		
@@ -40,7 +45,8 @@ def processing(generate_url, artist, title, save):
 	
 def printing(artist, title, save, lyrics):
 	for words in lyrics:
-		print str(words).strip()
+		words = encode(words)
+		print words.strip()
 	
 	if save == True:
 		saving(artist, title, lyrics)
@@ -49,5 +55,5 @@ def printing(artist, title, save, lyrics):
 			
 def saving(artist, title, lyrics):
 		f = open(artist + '_' + title + '.txt', 'w')
-		f.write("\n".join(lyrics).strip())
+		f.write("\n".join(lyrics).encode('utf-8').strip())
 		f.close()
